@@ -1,4 +1,4 @@
-package codv.Actors;
+package codv.Actors.Grids;
 
 import codv.Codv;
 import codv.Point;
@@ -13,7 +13,5 @@ public class GreenBelt extends Grid{
         super(codv, grids, position);
         color = Color.GREEN ;
         type = 3;
-        retentionRate = 0.5;
-        diffusionRate = 0.1;
     }
 }

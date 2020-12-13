@@ -1,4 +1,4 @@
-package codv.Actors;
+package codv.Actors.Grids;
 
 import codv.Codv;
 import codv.Point;
@@ -13,7 +13,11 @@ public class Indoor extends Grid{
         super(codv, grids, position);
         color = Color.WHITE;
         type = 2;
-        retentionRate = 0.5;
-        diffusionRate = 0.1;
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        changeColor();
     }
 }

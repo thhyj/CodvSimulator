@@ -1,8 +1,7 @@
-package codv.Actors;
+package codv.Actors.Grids;
 
 import codv.Codv;
 import codv.Point;
-import com.badlogic.gdx.graphics.Color;
 
 /**
  * 代表空地
@@ -11,9 +10,15 @@ public class Space extends Grid{
 
     public Space(Codv codv, Grid[][] grids, Point position) {
         super(codv, grids, position);
-        color = Color.WHITE;
+     //   color = Color.WHITE;
+     //   color = new Color(128.0f, 0.0f, 128.0f, 1.0f);
         type = 0;
-        retentionRate = 0.5;
-        diffusionRate = 0.1;
+
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        changeColor();
     }
 }

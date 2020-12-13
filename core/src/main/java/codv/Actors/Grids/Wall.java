@@ -1,4 +1,4 @@
-package codv.Actors;
+package codv.Actors.Grids;
 
 import codv.Codv;
 import codv.Point;

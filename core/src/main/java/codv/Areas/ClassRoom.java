@@ -21,10 +21,10 @@ public class ClassRoom extends Area{
                 init(new Point(90, 41), new Point(96, 47));
                 break;
             case 5:
-                init(new Point(83, 24), new Point(85, 36));
+                init(new Point(83, 24), new Point(85, 37));
                 break;
             case 6:
-                init(new Point(83, 35), new Point(96, 36));
+                init(new Point(83, 35), new Point(96, 37));
                 break;
             case 7:
                 init(new Point(83, 24), new Point(96, 25));

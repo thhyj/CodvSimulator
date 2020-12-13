@@ -2,6 +2,8 @@ package codv;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -25,11 +27,15 @@ public class GameScreen extends ScreenAdapter {
         font = new BitmapFont();
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(gameStage);
+        font.setColor(Color.BLACK);
+
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
+        Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(TimeUtils.nanoTime() - lastFPS >= 1000000000) {
             lastFPS = TimeUtils.nanoTime();
             FPS = nowFPS;
@@ -39,7 +45,8 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         gameStage.act();
         gameStage.draw();
-        font.draw(batch, "FPS:"+FPS, 50, 50);
+
+        font.draw(batch, "FPS:"+FPS, 1050, 50);
 
         batch.end();
     }

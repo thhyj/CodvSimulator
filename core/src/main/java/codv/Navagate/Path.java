@@ -1,9 +1,8 @@
 package codv.Navagate;
 
 
-import codv.Actors.Grid;
+import codv.Actors.Grids.Grid;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
