@@ -2,6 +2,7 @@ package codv.Mybuttons;
 
 import codv.Codv;
 import codv.Tools.Sentences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,13 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MaskButton extends MyButton{
   //  Sentences sentences;
+    Sound select;
     public MaskButton(Codv codv, int x, int y, int width, int height) {
         super(codv, x, y, width, height);
+        select = codv.manager.get("select.wav");
         addListener( new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 clickedStatus = !clickedStatus;
                 codv.reverseMasked();
+                select.play();
                 return super.touchDown(event, x, y, pointer, button);
             }
 

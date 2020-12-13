@@ -176,6 +176,7 @@ public class Student extends Actor {
         setZIndex(10999);
         status = 1;
         codv.addInfectedNumber();
+        codv.minusUninfectedNumber();
         convertTime = rand.nextInt(25200) + 3600;
        // convertTime = 600;
         System.out.println("infected number = " + codv.getInfectedNumber());
@@ -240,6 +241,7 @@ public class Student extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
+    //    if(codv.gameScreen.gameStage.pause) return;
         last+=delta;
      //   System.out.println("last = " + last);
         if(last > codv.gameScreen.gameStage.getThreshold()) {

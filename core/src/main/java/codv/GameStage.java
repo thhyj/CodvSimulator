@@ -18,6 +18,7 @@ public class GameStage extends Stage {
     private int time = 0, day = 1, week = 1;
     private float last = 0;
     private float threshold = 0.016f;
+    public boolean pause = false;
     private boolean action = false;
     private Monitor infectdNumberMonitor, attackedNumberMonitor, uninfectedNumberMonitor;
     private Monitor virusConcentrationMonitor, dayMonitor, studentNumberMonitor;
@@ -137,6 +138,7 @@ public class GameStage extends Stage {
     @Override
     public void act(float delta) {
         super.act(delta);
+    //    if(pause) return;
         last += delta;
         if(time == 0) {
             for(int i = 0; i < 1000; ++i){

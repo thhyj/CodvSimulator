@@ -43,6 +43,7 @@ public class GameScreen extends ScreenAdapter {
         }
         ++nowFPS;
         batch.begin();
+        if(!gameStage.pause)
         gameStage.act();
         gameStage.draw();
 

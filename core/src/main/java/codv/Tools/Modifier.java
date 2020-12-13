@@ -33,13 +33,23 @@ public class Modifier extends Actor {
                             touched = true;
                             //  System.out.println("233");
                             if(modifyTarget.value + type > 0 && modifyTarget.value + type < 6){
+                                if(modifyTarget.value == 0) {
+                                    codv.gameScreen.gameStage.pause = false;
+                                    select.play();
+                                    modifyTarget.value += type;
+                                    return super.touchDown(event, x, y, pointer, button);
+                                }
                                 modifyTarget.value += type;
+
                                 if(type == -1)
                                     codv.gameScreen.gameStage.mulThreshold(2f);
                                 else {
                                     codv.gameScreen.gameStage.mulThreshold(0.5f);
                                 }
                                 select.play();
+                            } else if(modifyTarget.value + type == 0){
+                                modifyTarget.value += type;
+                                codv.gameScreen.gameStage.pause = true;
                             } else notOk.play();
 
                             return super.touchDown(event, x, y, pointer, button);
