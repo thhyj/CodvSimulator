@@ -9,6 +9,7 @@ dependencies {
 	implementation project(':core')
 	implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
 	implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 }
 
 import org.gradle.internal.os.OperatingSystem

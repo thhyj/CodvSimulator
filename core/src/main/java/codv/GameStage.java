@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import java.io.*;
+import java.sql.*;
 import java.util.Random;
 
 public class GameStage extends Stage {
@@ -67,23 +68,96 @@ public class GameStage extends Stage {
         addActor(attackedNumberMonitor);
         addActor(new Clock(codv, 1000, 700));
         addActor(new MaskButton(codv, 1050, 200, 100, 30));
-    //    addActor(new Sentences(codv,"口罩", 1050, 220  ));
+    }
 
+    private void getMapFromDataBase() {
+        //数据库 URL,我这里用了阿里云的服务器
+         final String DB_URL = "jdbc:mysql://116.62.52.154:3306/map?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
+
+        // 数据库的用户名与密码
+         final String USER = "root";
+         final String PASS = "123456";
+        Connection conn = null;
+        Statement stmt = null;
+        try{
+
+            // 打开链接
+            System.out.println("连接数据库...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+
+            // 执行查询
+            System.out.println(" 实例化Statement对象...");
+            String sql = "select id, type FROM MAP ";
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int tot = 0;
+
+            for(int j = 99; j >= 0; --j) {
+                for(int i = 0; i < 100; ++i) {
+                    if(rs.next()){
+                        int id  = rs.getInt("id");
+                        int type = rs.getInt("type");
+                        switch (type) {
+                            case 0:
+                                grids[i][j] = new Space(codv, grids, new Point(i * 10, j * 10));
+                                break;
+                            case 1:
+                                grids[i][j] = new Wall(codv, grids, new Point(i * 10, j * 10));
+                                break;
+                            case 2:
+                                grids[i][j] = new Indoor(codv, grids, new Point(i * 10, j * 10));
+                                break;
+                            case 3:
+                                grids[i][j] = new GreenBelt(codv, grids, new Point(i * 10, j * 10));
+                                break;
+
+                        }
+                        addActor(grids[i][j]);
+                        grids[i][j].setZIndex(0);
+                    }
+                }
+            }
+
+
+            // 完成后关闭
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(java.sql.SQLException se){
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        }catch(Exception e){
+            // 处理 Class.forName 错误
+            e.printStackTrace();
+        }finally{
+            // 关闭资源
+            try{
+                if(stmt!=null) stmt.close();
+            }catch(SQLException se2){
+            }// 什么都不做
+            try{
+                if(conn!=null) conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
     }
 
     public void init() {
         grids = new Grid[100][100];
-        try {
+        getMapFromDataBase();
+      /*  try {
             FileInputStream fileInputStream = new FileInputStream("map.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-         //   DataInputStream dataInputStream = new DataInputStream(fileInputStream);
             int tempNum;
             for(int j = 99; j >= 0; --j) {
                 for(int i = 0; i < 100; ++i) {
                     do {
                         tempNum = (int) (inputStreamReader.read()) - 48;
                     } while(tempNum < 0);
-                //    tempNum = dataInputStream.readInt();
                     switch (tempNum) {
                         case 0:
                             grids[i][j] = new Space(codv, grids, new Point(i * 10, j * 10));
@@ -100,14 +174,13 @@ public class GameStage extends Stage {
 
                     }
                     addActor(grids[i][j]);
-                  //  grids[i][j] =
                     grids[i][j].setZIndex(0);
                 }
             }
         } catch (Exception e) {
             System.out.println( e.getMessage());
             e.printStackTrace();
-        }
+        }*/
 
 
 
@@ -115,11 +188,8 @@ public class GameStage extends Stage {
         for(int i = 0; i < 1000; ++i) {
             students[i] = new Student(codv, new getDorm(i));
             addActor(students[i]);
-        //    students[i].initTask();
             students[i].setZIndex(10000);
         }
-      //  System.out.println("qwq = " + students[0].getParent().getChildren().size);
-        //students[rand.nextInt(1000)].getInfected();
         students[rand.nextInt(1)].getInfected();
         menuInit();
     }

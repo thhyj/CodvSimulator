@@ -3,10 +3,17 @@ package codv.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import codv.Codv;
+import java.sql.*;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
+	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static void main(String[] args) {
+		try{
+			Class.forName(JDBC_DRIVER);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		createApplication();
 	}
 
